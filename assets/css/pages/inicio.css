@@ -1,0 +1,571 @@
+/* ===== RESET ===== */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ===== VARIABLES (paleta del hotel) ===== */
+:root {
+    --navy: #1e2a3a;
+    --gold: #c7a44b;
+    --gold2: #d4b15c;
+    --cream: #f9e7c2;
+    --light: #f5f5f5;
+    --white: #ffffff;
+    --shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    --radius: 16px;
+    --trans: all 0.3s ease;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--light);
+    color: var(--navy);
+}
+
+/* =========================================
+   HERO VIDEO — ocupa toda la pantalla
+   ========================================= */
+#hero-video {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    /* pantalla completa */
+    overflow: hidden;
+}
+
+#hero-video video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: cover;
+}
+
+/* Capa oscura sobre el video */
+#hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(30, 42, 58, 0.55);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    color: var(--white);
+}
+
+#hero-overlay h1 {
+    font-size: clamp(1.8rem, 6vw, 4rem);
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+#hero-overlay p {
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
+    color: var(--cream);
+    margin-bottom: 2rem;
+}
+
+#btn-explorar {
+    background-color: var(--gold);
+    color: var(--navy);
+    padding: 0.9rem 2.4rem;
+    text-decoration: none;
+    border-radius: 40px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: var(--trans);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+}
+
+#btn-explorar:hover {
+    background-color: var(--gold2);
+    transform: translateY(-3px);
+}
+
+/* =========================================
+   HEADER / NAV (sticky, aparece al scroll)
+   ========================================= */
+#header-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: rgba(30, 42, 58, 0.0);
+    /* transparente al inicio */
+    transition: background-color 0.4s ease, box-shadow 0.4s ease;
+    padding: 0.8rem 1.5rem;
+}
+
+/* Clase que añade JS al hacer scroll */
+#header-nav.scrolled {
+    background-color: var(--navy);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+}
+
+.header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.logo-nav {
+    color: var(--cream);
+    font-size: 1rem;
+    font-weight: bold;
+    letter-spacing: 0.08em;
+    flex-shrink: 0;
+}
+
+/* --- Menú hamburguesa --- */
+#btn-menu {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    z-index: 1100;
+}
+
+#btn-menu span {
+    display: block;
+    width: 26px;
+    height: 3px;
+    background-color: var(--cream);
+    border-radius: 4px;
+    transition: var(--trans);
+}
+
+/* Animación hamburguesa → X */
+#btn-menu.abierto span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+#btn-menu.abierto span:nth-child(2) {
+    opacity: 0;
+}
+
+#btn-menu.abierto span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+/* --- Links de nav --- */
+#nav-principal ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    flex-wrap: wrap;
+}
+
+#nav-principal ul li a {
+    color: var(--cream);
+    text-decoration: none;
+    padding: 0.45rem 0.8rem;
+    border-radius: 8px;
+    font-size: 0.92rem;
+    transition: var(--trans);
+}
+
+#nav-principal ul li a:hover,
+#nav-principal ul li a.activo {
+    color: var(--gold);
+}
+
+/* Botón login especial */
+#nav-principal ul li a.btn-login {
+    background-color: var(--gold);
+    color: var(--navy);
+    font-weight: bold;
+    padding: 0.45rem 1.1rem;
+    border-radius: 20px;
+}
+
+#nav-principal ul li a.btn-login:hover {
+    background-color: var(--gold2);
+    transform: translateY(-2px);
+}
+
+/* Botón Cerrar Sesión (estilo similar a Iniciar Sesión) */
+#nav-principal ul li button.btn-logout {
+    background-color: var(--gold);
+    color: var(--navy);
+    font-weight: bold;
+    padding: 0.45rem 1.1rem;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.18s ease, background-color 0.18s ease;
+}
+
+#nav-principal ul li button.btn-logout:hover {
+    background-color: var(--gold2);
+    transform: translateY(-2px);
+}
+
+/* Animación sutil para llamar la atención */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.03);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+#nav-principal ul li button.btn-logout {
+    animation: none;
+}
+
+#nav-principal ul li button.btn-logout.pulse {
+    animation: pulse 2.2s infinite ease-in-out;
+}
+
+
+
+/* Toast notification */
+.toast {
+    position: fixed;
+    right: 20px;
+    bottom: 30px;
+    background: rgba(40, 40, 40, 0.95);
+    color: #fff;
+    padding: 0.85rem 1rem;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    font-weight: 600;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* =========================================
+   MAIN — contenido debajo del hero
+   ========================================= */
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem 1rem;
+}
+
+/* Scroll-reveal: clase que añade JS */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: none;
+}
+
+/* =========================================
+   SECCIÓN: SERVICIOS DESTACADOS
+   ========================================= */
+.seccion-servicios {
+    padding: 3rem 0;
+    text-align: center;
+}
+
+.seccion-servicios h2 {
+    font-size: 2rem;
+    color: var(--navy);
+    margin-bottom: 2rem;
+    position: relative;
+    display: inline-block;
+}
+
+.seccion-servicios h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: var(--gold);
+    margin: 0.5rem auto 0;
+    border-radius: 2px;
+}
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+}
+
+.card {
+    background: var(--white);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: var(--trans);
+    text-align: left;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.card-body {
+    padding: 1rem 1.2rem 1.4rem;
+}
+
+.card-body h3 {
+    color: var(--gold);
+    margin-bottom: 0.4rem;
+    font-size: 1.1rem;
+}
+
+.card-body .precio {
+    font-weight: bold;
+    color: var(--navy);
+    margin-bottom: 0.5rem;
+}
+
+.card-body p {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.5;
+}
+
+/* =========================================
+   SECCIÓN: HORARIOS
+   ========================================= */
+.seccion-horarios {
+    padding: 3rem 0;
+    text-align: center;
+    background-color: var(--white);
+    border-radius: var(--radius);
+    margin: 1rem 0;
+    box-shadow: var(--shadow);
+    padding: 2rem;
+}
+
+.seccion-horarios h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: var(--navy);
+}
+
+.tabla-wrapper {
+    overflow-x: auto;
+}
+
+.seccion-horarios table {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+    border-collapse: collapse;
+}
+
+.seccion-horarios th,
+.seccion-horarios td {
+    padding: 0.85rem 1.2rem;
+    text-align: center;
+    border: 1px solid #e0e0e0;
+    font-size: 0.95rem;
+}
+
+.seccion-horarios th {
+    background-color: var(--navy);
+    color: var(--cream);
+    font-weight: 600;
+}
+
+.seccion-horarios tr:nth-child(even) td {
+    background-color: #f9f9f9;
+}
+
+.seccion-horarios tr:hover td {
+    background-color: #fdf5e6;
+}
+
+/* =========================================
+   SECCIÓN: CONÓCENOS
+   ========================================= */
+.seccion-conocenos {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: linear-gradient(135deg, var(--navy) 0%, #2c3e4e 100%);
+    border-radius: var(--radius);
+    margin: 2rem 0;
+    color: var(--white);
+}
+
+.seccion-conocenos h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.seccion-conocenos p {
+    max-width: 600px;
+    margin: 0 auto 1.5rem;
+    color: var(--cream);
+    line-height: 1.7;
+}
+
+.seccion-conocenos a {
+    background-color: var(--gold);
+    color: var(--navy);
+    padding: 0.8rem 2rem;
+    text-decoration: none;
+    border-radius: 40px;
+    font-weight: bold;
+    transition: var(--trans);
+    display: inline-block;
+}
+
+.seccion-conocenos a:hover {
+    background-color: var(--gold2);
+    transform: translateY(-3px);
+}
+
+/* =========================================
+   SECCIÓN: REDES SOCIALES
+   ========================================= */
+.seccion-redes {
+    text-align: center;
+    padding: 2rem;
+    background-color: var(--navy);
+    border-radius: var(--radius);
+    color: var(--cream);
+    margin: 2rem 0;
+}
+
+.seccion-redes h2 {
+    margin-bottom: 1rem;
+    font-size: 1.6rem;
+}
+
+.seccion-redes ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.seccion-redes ul li a {
+    color: var(--gold);
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: var(--trans);
+}
+
+.seccion-redes ul li a:hover {
+    color: var(--white);
+}
+
+/* =========================================
+   FOOTER
+   ========================================= */
+footer {
+    background-color: var(--navy);
+    color: #b8a97c;
+    text-align: center;
+    padding: 1.8rem 1rem;
+    margin-top: 2rem;
+}
+
+footer p {
+    margin: 0.3rem 0;
+    font-size: 0.9rem;
+}
+
+/* =========================================
+   MEDIA QUERIES
+   ========================================= */
+@media (max-width: 768px) {
+
+    /* Menú hamburguesa visible */
+    #btn-menu {
+        display: flex;
+    }
+
+    /* Nav se oculta por defecto en móvil */
+    #nav-principal {
+        display: none;
+        width: 100%;
+        order: 3;
+    }
+
+    /* Clase que añade JS al abrir menú */
+    #nav-principal.nav-abierto {
+        display: block;
+    }
+
+    #nav-principal ul {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+        padding: 0.5rem 0;
+    }
+
+    #nav-principal ul li a {
+        display: block;
+        padding: 0.7rem 1rem;
+        border-bottom: 1px solid rgba(249, 231, 194, 0.15);
+        width: 100%;
+        font-size: 1rem;
+    }
+
+    .header-inner {
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 480px) {
+    #hero-overlay h1 {
+        font-size: 1.6rem;
+    }
+
+    .cards-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .seccion-horarios th,
+    .seccion-horarios td {
+        padding: 0.5rem 0.6rem;
+        font-size: 0.8rem;
+    }
+}

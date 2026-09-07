@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hotel Wyndham Costa del Sol Chiclayo</title>
+    <link rel="stylesheet" href="/assets/css/pages/inicio.css">
+</head>
+
+<body data-page="inicio">
+
+    <!-- ===== AUDIO DE AMBIENTE ===== -->
+    <audio id="audioAmbiente" src="/assets/audio/musicadeinicio.mp3" loop></audio>
+
+    <!-- ===== HERO: VIDEO A PANTALLA COMPLETA ===== -->
+    <section id="hero-video">
+        <video id="videoInicio" autoplay muted loop playsinline>
+            <source src="/assets/video/Hotel_inicio.mp4" type="video/mp4">
+        </video>
+        <div id="hero-overlay">
+            <h1>HOTEL WYNDHAM<br>COSTA DEL SOL CHICLAYO</h1>
+            <p>Comodidad y lujo, es nuestra prioridad</p>
+            <a href="#contenido-principal" id="btn-explorar">Explorar</a>
+        </div>
+    </section>
+
+    <!-- ===== HEADER (componente, ya no se repite el HTML) ===== -->
+    <div data-include="/components/header.html"></div>
+
+    <!-- ===== CONTENIDO PRINCIPAL ===== -->
+    <main id="contenido-principal">
+
+        <section class="seccion-servicios">
+            <h2>Servicios Destacados</h2>
+            <div class="cards-grid">
+                <div class="card">
+                    <img src="/assets/image/habitaciondeluxe.jpg" alt="Habitación Deluxe">
+                    <div class="card-body">
+                        <h3>Habitaciones Deluxe</h3>
+                        <p class="precio">Desde S/. 350.00</p>
+                        <p>Amplias, con vista a la ciudad o piscina, cama king y WiFi de alta velocidad.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="/assets/image/restaurant.png" alt="Restaurante Gourmet">
+                    <div class="card-body">
+                        <h3>Restaurante Gourmet</h3>
+                        <p class="precio">Desde S/. 80.00</p>
+                        <p>Buffet internacional y platos típicos preparados por los mejores chefs.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="/assets/image/spa.png" alt="Spa y Bienestar">
+                    <div class="card-body">
+                        <h3>Spa & Bienestar</h3>
+                        <p class="precio">Desde S/. 120.00</p>
+                        <p>Masajes, sauna y tratamientos de relajación para renovar energías.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="/assets/image/piscina.jpg" alt="Piscina">
+                    <div class="card-body">
+                        <h3>Piscina</h3>
+                        <p class="precio">Incluido en hospedaje</p>
+                        <p>Relájate en nuestra piscina temperada disponible todos los días.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="seccion-horarios">
+            <h2>Horarios de Atención</h2>
+            <div class="tabla-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Servicio</th>
+                            <th>Lunes - Viernes</th>
+                            <th>Sábado</th>
+                            <th>Domingo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Recepción y check-in</td>
+                            <td>24 horas</td>
+                            <td>24 horas</td>
+                            <td>24 horas</td>
+                        </tr>
+                        <tr>
+                            <td>Restaurante</td>
+                            <td>6:30 am – 10:30 pm</td>
+                            <td>7:00 am – 11:00 pm</td>
+                            <td>7:00 am – 10:00 pm</td>
+                        </tr>
+                        <tr>
+                            <td>Spa & Gimnasio</td>
+                            <td>8:00 am – 9:00 pm</td>
+                            <td>9:00 am – 8:00 pm</td>
+                            <td>9:00 am – 6:00 pm</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="seccion-conocenos">
+            <h2>Conócenos</h2>
+            <p>Somos un equipo apasionado por la hospitalidad, comprometido en brindar una estancia inolvidable con
+                calidez y excelencia desde 1995.</p>
+            <a href="/pages/acerca.html">Saber más</a>
+        </section>
+
+        <section class="seccion-redes">
+            <h2>Síguenos en Redes</h2>
+            <ul>
+                <li><a href="https://www.facebook.com/HotelesCostadelSolPeru/" target="_blank">Facebook</a></li>
+                <li><a href="https://www.instagram.com/costadelsolperu/" target="_blank">Instagram</a></li>
+            </ul>
+        </section>
+
+    </main>
+
+    <!-- ===== FOOTER (componente, ya no se repite el HTML) ===== -->
+    <div data-include="/components/footer.html"></div>
+
+    <!-- ===== SCRIPTS: primero el core compartido, después el propio de la página ===== -->
+    <script src="/assets/js/core/nav.js"></script>
+    <script src="/assets/js/core/audio.js"></script>
+    <script src="/assets/js/pages/inicio.js"></script>
+
+</body>
+
+</html>
