@@ -1,28 +1,53 @@
 // ============================================================================
-// nav.js — todo lo que antes estaba DUPLICADO en cada Scripts/*.js
-// (carga de header/footer, menú responsivo, año del footer, sesión activa)
+// nav.js — carga de header/footer, menú responsivo, año del footer, sesión activa
 // Se carga UNA vez por página, antes del script propio de cada página.
 // ============================================================================
 
+// Si la página está dentro de /pages/ hay que subir un nivel para llegar a la raíz.
+const PREFIX = location.pathname.includes('/pages/') ? '../' : '';
+
 document.addEventListener('DOMContentLoaded', async () => {
-    await cargarComponentes();   // inyecta /components/header.html y footer.html
+    await cargarComponentes();   // inyecta header.html y footer.html
+    ajustarRutas();              // arregla los links según el nivel de la página
     marcarPaginaActiva();
     activarMenuResponsivo();
     actualizarAnioFooter();
     revisarSesionActiva();
 });
 
-// Busca cualquier elemento con [data-include="/components/algo.html"]
+// Busca cualquier elemento con [data-include="ruta/al/componente.html"]
 // y lo reemplaza por el contenido de ese archivo.
 async function cargarComponentes() {
     const nodos = document.querySelectorAll('[data-include]');
     await Promise.all(
         Array.from(nodos).map(async (nodo) => {
             const ruta = nodo.getAttribute('data-include');
-            const respuesta = await fetch(ruta);
-            nodo.outerHTML = await respuesta.text();
+            try {
+                const respuesta = await fetch(ruta);
+                if (!respuesta.ok) throw new Error(`${respuesta.status} en ${ruta}`);
+                nodo.outerHTML = await respuesta.text();
+            } catch (e) {
+                console.error('No se pudo cargar el componente:', e);
+            }
         })
     );
+}
+
+// Los componentes están escritos con rutas relativas a la RAÍZ del sitio
+// (ej. "pages/acerca.html"). Aquí les agregamos el prefijo si la página está en /pages/.
+function ajustarRutas() {
+    document.querySelectorAll('#header-nav a[href], footer a[href]').forEach((a) => {
+        const href = a.getAttribute('href');
+        if (!/^(https?:|\/\/|#|mailto:|tel:)/.test(href)) {
+            a.setAttribute('href', PREFIX + href);
+        }
+    });
+    document.querySelectorAll('#header-nav img[src], footer img[src]').forEach((img) => {
+        const src = img.getAttribute('src');
+        if (!/^(https?:|\/\/|data:)/.test(src)) {
+            img.setAttribute('src', PREFIX + src);
+        }
+    });
 }
 
 // Marca como "activo" el link del nav que corresponde a la página actual,
@@ -83,7 +108,7 @@ function revisarSesionActiva() {
             btn.textContent = 'Cerrar Sesión';
             btn.addEventListener('click', () => {
                 sessionStorage.removeItem('wyndham_sesion');
-                window.location.href = '/index.html';
+                window.location.href = PREFIX + 'index.html';
             });
             li.appendChild(btn);
             ulNav.appendChild(li);
